@@ -29,6 +29,7 @@
       val myList = [[1,2],[],[5,6,7]]
       val ans = map (null, myList) (* answer: [false, true, false] *)
       
-(* choose 3 to 9 randomly *)
+(* choose 3 to 9 strings randomly *)
+
       val myList = ["soup", "dog", "orange", "park", "cat", "helps", "talks", "castle", "genius", "flaming"]
       val ans = map (String.size, myList)  (* answer: [4, 3, 6, 4, ...] *)
