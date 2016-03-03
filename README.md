@@ -1,10 +1,10 @@
 # map
 
 ### Map Function
-fun map (f,xs) =
-      case xs of
-              [] => []
-       | first::rest => (f first)::(map(f, rest))
+      fun map (f,xs) =
+            case xs of
+                  [] => []
+            | first::rest => (f first)::(map(f, rest))
 
 ---
 
