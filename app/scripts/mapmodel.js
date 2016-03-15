@@ -1,6 +1,6 @@
 /*
  * Tyler Deans
- * March 14, 2016
+ * March 15, 2016
  */
 
 
@@ -25,10 +25,10 @@ function getQuestionType() {
 
     return type;
 }
-
+// returns the number of elements in a number list
 function getNumOfElements() {
-    // generate a number between 3 and 9
-    return getRandomInt(3, 10);
+    // generate a number between 3 and 5
+    return getRandomInt(3, 6);
 }
 
 // generates a list of numbers
@@ -36,7 +36,7 @@ function getNumOfElements() {
 function numberListGenerator(numElements) {
     var list = [];
     for (var i = 0; i < numElements; i++) {
-        list[i] = getRandomInt(0, 10);
+        list[i] = getRandomInt(0, 10); // the element will be number between 0 and 9
     }
     return list;
 }
@@ -90,44 +90,50 @@ function getMathAnswer(operator, list, yVal) {
             list[i] = list[i] * yVal;
         }
     }
+
+    return list
 }
 
 function getStringAnswer(list) {
     var stringSizeList = [];
     for (var i = 0; i < list.length; i++) {
-        stringSizeList = list[i].length;
+        stringSizeList.push(list[i].length);
     }
 
     return stringSizeList;
 
 }
 
-function getAddOperand() {
-    // returns a value between 1 and 3
-    return getRandomInt(1, 4);
+function getAdditonValue() {
+    // returns a value between 1 and 9
+    return getRandomInt(1, 10);
 }
 
-function getMultiplyOperand() {
+function getMultiplyValue() {
     // returns a value between 2 and 5
     return getRandomInt(2, 6);
 }
 
+// returns an array of boolean values
 function getNullAnswer(list) {
+    var booleanlist = [];
     for (var i = 0; i < list.length; i++) {
         var listStr = list[i].toString();
         if (list[i] === "[]") {
-            return true;
+            booleanlist[i] = true;
+        } else {
+            booleanlist[i] = false;
         }
     }
 
-    return false;
+    return booleanlist;
 }
 
 function getHeadOfList(list) {
     return list[0];
 }
 
-function getMathOperator() {
+function setMathOperator() {
     var operator = "";
     var operatorType = getRandomInt(1, 3);
     if (operatorType === 1) {
@@ -144,19 +150,73 @@ MapModel.prototype.evalMapExpression = function() {
     this.mapString += "     case xs of\n";
     this.mapString += "         [] => []\n";
     this.mapString += "     | first::rest => (f first)::(map(f, rest))\n";
-
+    this.mapExpressionString = "<pre>" + this.mapString + "\n";
     var question = getQuestionType();
+    var answer = [];
+
     if (question === "arithmetic") {
+        var operator = setMathOperator();
+        var numElements = getNumOfElements();
+        var numList = numberListGenerator(numElements);
+
+        if (operator === "+") {
+            var value = getAddValue();
+            this.mapExpressionString += "val myList = " + "[";
+
+            // displays the list in a formatted way
+            for (var i = 0; i < numList.length; i++) {
+                // if it is the last element print the string without the comma
+                if (i == (numList.length - 1)) {
+                    this.mapExpressionString += numList[i];
+                } else { // otherwise print the string with the comma
+                    this.mapExpressionString += numList[i] + ', ';
+                }
+            }
+            this.mapExpressionString += "]\n";
+            this.mapExpressionString += "val ans = map ((fn x => x + " + value + "), myList)</pre>";
+            answer = getMathAnswer(numList, operator, value);
+
+        } else {
+            var value = getMultiplyValue();
+            this.mapExpressionString += "val myList = " + "[";
+
+            // displays the list in a formatted way
+            for (var i = 0; i < numList.length; i++) {
+                // if it is the last element print the string without the comma
+                if (i == (numList.length - 1)) {
+                    this.mapExpressionString += numList[i];
+                } else { // otherwise print the string with the comma
+                    this.mapExpressionString += numList[i] + ', ';
+                }
+            }
+            this.mapExpressionString += "]\n";
+            this.mapExpressionString += "val ans = map ((fn x => x * " + value + "), myList)</pre>";
+            answer = getMathAnswer(numList, operator, value);
+        }
+
 
     } else if (question === "string") {
-
+        var strList = stringListGenerator();
+        this.mapExpressionString += "val myList = " + "[";
+        for (var i = 0; i < strList.length; i++) {
+            // if it is the last element print the string without the comma
+            if (i == (strList.length - 1)) {
+                this.mapExpressionString += '"' + strList[i] + '"';
+            } else { // otherwise print the string with the comma
+                this.mapExpressionString += '"' + strList[i] + '", ';
+            }
+        }
+        this.mapExpressionString += "]\n";
+        this.mapExpressionString += "val ans = map (String.size, myList)</pre>";
+        answer = getStringAnswer(strList);
     } else if (question === "head") {
 
-    } else {
+    } else { // null question
 
     }
+    return answer;
 }
 
 MapModel.prototype.getMapExpression = function() {
-    return this.mapString;
+    return this.mapExpressionString;
 }
