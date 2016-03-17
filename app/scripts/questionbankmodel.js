@@ -1,6 +1,6 @@
 /*
  * Tyler Deans
- * February 20, 2016
+ * March 17, 2016
  * questionbankmodel.js
  */
 
@@ -69,18 +69,13 @@ QuestionBankModel.prototype.masteryAchieved = function() {
 }
 
 
-/*
- * Compare the student's answer to the correct answer.
- * The answer has to be a string
- */
-QuestionBankModel.prototype.checkAnswer = function(studentAnswer) {
-  for (var i = 0; i < this.answers.length; i++) {
-    if (this.answers[i] === studentAnswer) {
-      return true;
-    }
-  }
 
-  return false;
+QuestionBankModel.prototype.checkAnswer = function(studentAnswer) {
+  var correctAnswer = false;
+  for (var i = 0; i < this.answers.length; i++) {
+
+  }
+  return correctAnswer;
 }
 
 
@@ -132,24 +127,24 @@ QuestionBankModel.prototype.chooseQuestion = function(_firstQuestion, _lastQuest
  * Right now I'm using a really clunky approach. I'm sure there's
  * a better way.
  */
-QuestionBankModel.prototype.setAnswers = function(_datatype) {
+QuestionBankModel.prototype.setAnswers = function(_map) {
   // Reset answers array
   this.answers = [];
   // Adds the answers to the question to the answers array
   // Set the answer(s) to the question indicated by questionIndex.
 
   if (this.questionIndex == 0) {
-    this.answers.push(_datatype.randomDatatypeExpression());
+    this.answers.push(_map.evalMapExpression());
 
   } else if (this.questionIndex == 1) {
-    this.answers.push(_datatype.randomDatatypeExpression());
+    this.answers.push(_map.evalMapExpression());
 
   } else if (this.questionIndex == 2) {
-    this.answers.push(_datatype.randomDatatypeExpression());
+    this.answers.push(_map.evalMapExpression());
 
   } else if (this.questionIndex == 3) {
-    this.answers.push(_datatype.randomDatatypeExpression());
+    this.answers.push(_map.evalMapExpression());
   } else {
-    this.answers.push(_datatype.randomDatatypeExpression());
+    this.answers.push(_map.evalMapExpression());
   }
 }

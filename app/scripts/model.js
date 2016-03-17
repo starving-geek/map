@@ -15,7 +15,7 @@
 
 /*
  * Tyler Deans
- * February 21, 2016
+ * March 17, 2016
  */
 function emptyOutArray(myArray) {
     myArray.length = 0;
@@ -64,8 +64,7 @@ SimModel.prototype = new pipit.CapiAdapter.CapiModel;
 
 
 SimModel.prototype.initializeModel = function() {
-    // the option expression object is used to answer questions
-    this.datatypeExpression = new DatatypeModel(this);
+    this.mapExpression = new MapModel(this);
     // the question bank stores the questions, the answers and the student's
     // answer history
     this.questionBank = new QuestionBankModel(this, this.get('numerator'),

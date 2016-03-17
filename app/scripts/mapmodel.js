@@ -55,6 +55,14 @@ function doubleListGenerator() {
 
 }
 
+function emptyListGenerator() {
+    var emptylList = [];
+    // the index of the empty list is randomly generated in a range between 0 and 2
+    var index = getRandomInt(0, 3)
+    var list = doubleListGenerator();
+    list[index] = emptyList;
+}
+
 function getRandomString(strList) {
     var index = getRandomInt(0, strList.length);
     return strList[index];
@@ -194,7 +202,6 @@ MapModel.prototype.evalMapExpression = function() {
             answer = getMathAnswer(numList, operator, value);
         }
 
-
     } else if (question === "string") {
         var strList = stringListGenerator();
         this.mapExpressionString += "val myList = " + "[";
@@ -209,14 +216,65 @@ MapModel.prototype.evalMapExpression = function() {
         this.mapExpressionString += "]\n";
         this.mapExpressionString += "val ans = map (String.size, myList)</pre>";
         answer = getStringAnswer(strList);
+
     } else if (question === "head") {
+        var numlist = doubleListGenerator();
+        this.mapExpressionString += "val myList = " + "[[";
+        for (var i = 0; i < numList.length; i++) {
+            this.mapExpressionString += "[";
+            for (var j = 0; j < numList[i].length; j++) {
+                if (i == (numList[i][j].length - 1)) {
+                    this.mapExpressionString += numList[i][j] + "]";
+                } else { // otherwise print the string with the comma
+                    this.mapExpressionString += numList[i][j] + ', ';
+                }
+            }
 
+            // if it is the last element print the string without the comma
+            if (i == (numList.length - 1)) {
+                this.mapExpressionString += "]]\n";
+            } else { // otherwise print the string with the comma
+                this.mapExpressionString += ', ';
+            }
+        }
+
+        this.mapExpressionString += "val ans = map (hd, myList)</pre>";
+        answer = getHeadOfList(numList);
     } else { // null question
+        var numList = emptyListGenerator();
+        for (var i = 0; i < numList.length; i++) {
+            this.mapExpressionString += "[";
+            if (numList[i][j].length == 0) {
+                if (i == (numList.length - 1)) {
+                    this.mapExpressionString += "[]";
+                } else {
+                    this.mapExpressionString += "[], ";
+                }
 
+            } else {
+                for (var j = 0; j < numList[i].length; j++) {
+                    if (i == (numList.length - 1)) {
+                        this.mapExpressionString += numList[i][j] + "]";
+                    } else { // otherwise print the string with the comma
+                        this.mapExpressionString += numList[i][j] + ', ';
+                    }
+                }
+                // if it is the last element print the string without the comma
+                if (i == (numList.length - 1)) {
+                    this.mapExpressionString += "]]\n";
+                } else { // otherwise print the string with the comma
+                    this.mapExpressionString += ', ';
+                }
+            }
+        }
+        this.mapExpressionString += "val ans = map (null, myList)</pre>";
+        answer = getNullAnswer(numList);
     }
     return answer;
 }
 
 MapModel.prototype.getMapExpression = function() {
-    return this.mapExpressionString;
+        return this.mapExpressionString;
 }
+
+

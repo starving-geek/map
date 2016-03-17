@@ -23,8 +23,8 @@ function SimView(_controller) {
   // create the question bank view - where questions and answer history are
   // displayed
   this.questionBankView = new QuestionBankView(this);
-  // creates the datatype view
-  this.datatypeView = new DatatypeView(this);
+  // creates the map view
+  this.mapView = new MapView(this);
 }
 
 

@@ -1,6 +1,6 @@
  /* Rich Simpson
   * Tyler Deans
-  * March 12, 2016
+  * March 17, 2016
   * controller.js
   */
 
@@ -55,7 +55,7 @@
 
 
  SimController.prototype.setupDisplay = function() {
-   this.simModel.mapExpression.randomDatatypeExpression();
+   this.simModel.mapExpression.evalMapExpression());
    // choose a question randomly
    var question = this.simModel.questionBank.chooseQuestion(this.getModelValue('firstQuestion'), this.getModelValue('lastQuestion'));
    // store the answer(s) to the question we chose in the last step

@@ -1,10 +1,10 @@
 /*
  * Tyler Deans
- * February 21, 2016
+ * March 17, 2016
  */
 
 
-function DatatypeView(_simView) {
+function MapView(_simView) {
     // keep a link to the view
     this.simView = _simView;
 }
@@ -14,7 +14,7 @@ function DatatypeView(_simView) {
 	draws expressions for the option view
 */
 
-DatatypeView.prototype.drawDatatypeExpression = function(_datatype) {
+MapView.prototype.drawMapExpression = function(_map) {
 
-    $('#datatypeDiv').append(_datatype.datatypeString);
+    $('#mapDiv').append(_map.mapExpressionString);
 }
