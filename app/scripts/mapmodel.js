@@ -154,12 +154,16 @@ function setMathOperator() {
     return operator;
 }
 
+function getMapFucntionString() {
+    var mapString = "fun map (f,xs) =\n";
+    mapString += "     case xs of\n";
+    mapString += "         [] => []\n";
+    mapString += "     | first::rest => (f first)::(map(f, rest))\n";
+    return mapString;
+}
+
 MapModel.prototype.evalMapExpression = function() {
-    this.mapString = "fun map (f,xs) =\n";
-    this.mapString += "     case xs of\n";
-    this.mapString += "         [] => []\n";
-    this.mapString += "     | first::rest => (f first)::(map(f, rest))\n";
-    this.mapExpressionString = "<pre>" + this.mapString + "\n";
+    this.mapExpressionString = "<pre>" + getMapFucntionString() + "\n";
     var question = getQuestionType();
     var answer = [];
 
