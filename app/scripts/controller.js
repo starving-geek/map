@@ -1,6 +1,6 @@
  /* Rich Simpson
   * Tyler Deans
-  * March 17, 2016
+  * March 18, 2016
   * controller.js
   */
 
@@ -55,7 +55,7 @@
 
 
  SimController.prototype.setupDisplay = function() {
-   this.simModel.mapExpression.evalMapExpression());
+   this.simModel.mapExpression.evalMapExpression();
    // choose a question randomly
    var question = this.simModel.questionBank.chooseQuestion(this.getModelValue('firstQuestion'), this.getModelValue('lastQuestion'));
    // store the answer(s) to the question we chose in the last step
@@ -63,7 +63,7 @@
    // draw the results for the last five questions
    this.simView.questionBankView.drawAnswerHistory(this.simModel.questionBank.answerHistory);
    // draw the expressions on the screen
-   this.simView.datatypeView.drawDatatypeExpression(this.simModel.mapExpression);
+   this.simView.mapView.drawMapExpression(this.simModel.mapExpression);
    // display the next question
    this.simView.questionBankView.presentQuestion(question);
  }
