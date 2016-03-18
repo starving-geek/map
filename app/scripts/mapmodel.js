@@ -243,29 +243,28 @@ MapModel.prototype.evalMapExpression = function() {
         answer = getHeadOfList(numList);
     } else { // null question
         var numList = emptyListGenerator();
-        this.mapExpressionString += "val myList = [[";
+        this.mapExpressionString += "val myList = [";
         for (var i = 0; i < numList.length; i++) {
             if (numList[i].length == 0) {
-                this.mapExpressionString += numList[i];
+                this.mapExpressionString += "[]";
             } else {
+                this.mapExpressionString += "[";
                 for (var j = 0; j < numList[i].length; j++) {
-
                     if (j == (numList[i].length - 1)) {
-                        this.mapExpressionString += numList[i][j];
+                        this.mapExpressionString += numList[i][j] + "]";
                     } else { // otherwise print the string with the comma
                         this.mapExpressionString += numList[i][j] + ', ';
                     }
                 }
             }
+            //if it is the last element print the string without the comma
+            if (i == (numList.length - 1)) {
+                this.mapExpressionString += "]\n";
+            } else { // otherwise print the string with the comma
+                this.mapExpressionString += ', ';
+            }
         }
-
-        //if it is the last element print the string without the comma
-        if (i == (numList.length - 1)) {
-            this.mapExpressionString += "\n";
-        } else { // otherwise print the string with the comma
-            this.mapExpressionString += '], ';
-        }
-
+        
         this.mapExpressionString += "val ans = map (null, myList)</pre>";
         answer = getNullAnswer(numList);
     }
