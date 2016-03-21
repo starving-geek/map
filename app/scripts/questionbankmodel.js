@@ -1,6 +1,6 @@
 /*
  * Tyler Deans
- * March 17, 2016
+ * March 20, 2016
  * questionbankmodel.js
  */
 
@@ -71,12 +71,23 @@ QuestionBankModel.prototype.masteryAchieved = function() {
 
 
 QuestionBankModel.prototype.checkAnswer = function(studentAnswer) {
-  var correctAnswer = false;
-  for (var i = 0; i < this.answers.length; i++) {
+    var correctAnswer = false;
 
-  }
-  return correctAnswer;
+    // if the user enters nothing it returns false
+    if (studentAnswerString == "") {
+        correctAnswer = false;
+    } else {
+      for (var i = 0; i < this.answers.length; i++) {
+            if (this.answers[i] == studentAnswer[i]) {
+                correctAnswer = true;
+            }
+
+        }
+    }
+
+    return correctAnswer;
 }
+
 
 
 /*

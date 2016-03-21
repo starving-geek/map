@@ -55,7 +55,7 @@
 
 
  SimController.prototype.setupDisplay = function() {
-   this.simModel.mapExpression.evalMapExpression());
+   this.simModel.mapExpression.evalMapExpression();
    // choose a question randomly
    var question = this.simModel.questionBank.chooseQuestion(this.getModelValue('firstQuestion'), this.getModelValue('lastQuestion'));
    // store the answer(s) to the question we chose in the last step

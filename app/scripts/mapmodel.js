@@ -141,6 +141,14 @@ function getHeadOfList(list) {
     return list[0];
 }
 
+function getHeadAnswer(doubleList) {
+    var list = [];
+    for (var i = 0; i < doubleList.length; i++) {
+        list.push(getHeadOfList(doubleList[i]));
+    }
+    return list;
+}
+
 function setMathOperator() {
     var operator = "";
     var operatorType = getRandomInt(1, 3);
@@ -239,7 +247,7 @@ MapModel.prototype.evalMapExpression = function() {
         }
 
         this.mapExpressionString += "val ans = map (hd, myList)</pre>";
-        answer = getHeadOfList(numList);
+        answer = getHeadAnswer(numList);
     } else { // null question
         var numList = emptyListGenerator();
         for (var i = 0; i < numList.length; i++) {
