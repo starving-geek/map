@@ -1,6 +1,6 @@
  /* Rich Simpson
   * Tyler Deans
-  * March 17, 2016
+  * March 18, 2016
   * controller.js
   */
 
@@ -63,7 +63,7 @@
    // draw the results for the last five questions
    this.simView.questionBankView.drawAnswerHistory(this.simModel.questionBank.answerHistory);
    // draw the expressions on the screen
-   this.simView.datatypeView.drawDatatypeExpression(this.simModel.mapExpression);
+   this.simView.mapView.drawMapExpression(this.simModel.mapExpression);
    // display the next question
    this.simView.questionBankView.presentQuestion(question);
  }
