@@ -125,17 +125,16 @@ function getMultiplyValue() {
 
 // returns an array of boolean values
 function getNullAnswer(list) {
-    var booleanlist = [];
+    var booleanList = [];
     for (var i = 0; i < list.length; i++) {
-        var listStr = list[i].toString();
-        if (listStr === "[]") {
-            booleanlist[i] = true;
+        if (list[i].length === 0) {
+            booleanList.push(true);
         } else {
-            booleanlist[i] = false;
+            booleanList.push(false);
         }
     }
 
-    return booleanlist;
+    return booleanList;
 }
 
 function getHeadOfList(list) {

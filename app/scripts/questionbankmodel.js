@@ -71,13 +71,16 @@ QuestionBankModel.prototype.masteryAchieved = function() {
 
 
 QuestionBankModel.prototype.checkAnswer = function(studentAnswer) {
-    var correctAnswer = false;
+    var correctAnswers = [];
     if ((studentAnswer.indexOf("[") === -1) && (studentAnswer.indexOf("]") === -1)) {
+        return false;
+    } else if ((studentAnswer.indexOf("[") === -1) || (studentAnswer.indexOf("]") === -1)) {
+        // if the student forgets to add an [ or ] to the list it returns false
         return false;
     } else {
         // turn the studentAnswer string into a string list
         studentAnswerStr = studentAnswer.replace("[", "").replace("]", "");
-        studentAnswerList = studentAnswerStr.replace(/['"]+/g, '').replace(" ", "").split(",");
+        studentAnswerList = studentAnswerStr.split(", ");
         // checks if the user entered the correct number of elements in the array
         // if not then returns false
         if (studentAnswerList.length != this.answers.length) {
@@ -89,14 +92,30 @@ QuestionBankModel.prototype.checkAnswer = function(studentAnswer) {
              * integer they are equal if the values are the same
             */
             if (this.answers[i].toString() === studentAnswerList[i]) {
-                correctAnswer = true;
+                correctAnswers.push(true);
+            } else {
+                correctAnswers.push(false);
             }
 
         }
 
     }
-
-    return correctAnswer;
+    // This code ensures that the student's list has all the correct answers
+    var numTrue = 0;
+    var numFalse = 0;
+    for (var i = 0; i < correctAnswers.length; i++) {
+        if (correctAnswers[i] === true) {
+            numTrue++;
+        } else {
+            numFalse++;
+        }
+    }
+    // if all of the elements are correct return true
+    if (numTrue === correctAnswers.length) {
+        return true;
+    } else{ // if not return false
+        return false;
+    }
 }
 
 
