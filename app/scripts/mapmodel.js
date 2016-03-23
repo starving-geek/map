@@ -128,7 +128,7 @@ function getNullAnswer(list) {
     var booleanlist = [];
     for (var i = 0; i < list.length; i++) {
         var listStr = list[i].toString();
-        if (list[i] === "[]") {
+        if (listStr === "[]") {
             booleanlist[i] = true;
         } else {
             booleanlist[i] = false;
@@ -195,7 +195,7 @@ MapModel.prototype.evalMapExpression = function() {
             }
             this.mapExpressionString += "]\n";
             this.mapExpressionString += "val ans = map ((fn x => x + " + value + "), myList)</pre>";
-            answer = getMathAnswer(numList, operator, value);
+            answer = getMathAnswer(operator, numList, value);
 
         } else {
             var value = getMultiplyValue();
@@ -212,7 +212,7 @@ MapModel.prototype.evalMapExpression = function() {
             }
             this.mapExpressionString += "]\n";
             this.mapExpressionString += "val ans = map ((fn x => x * " + value + "), myList)</pre>";
-            answer = getMathAnswer(numList, operator, value);
+            answer = getMathAnswer(operator, numList, value);
         }
 
     } else if (question === "string") {
@@ -276,13 +276,13 @@ MapModel.prototype.evalMapExpression = function() {
                 this.mapExpressionString += ', ';
             }
         }
-        
+
         this.mapExpressionString += "val ans = map (null, myList)</pre>";
         answer = getNullAnswer(numList);
     }
     return answer;
 }
-    
+
 
 MapModel.prototype.getMapExpression = function() {
         return this.mapExpressionString;
