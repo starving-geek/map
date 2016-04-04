@@ -1,13 +1,29 @@
 /*
  * Tyler Deans
- * March 18, 2016
+ * April 4, 2016
  */
-
-
 
 function MapModel(_simModel) {
     // save a link to the model
     this.simModel = _simModel;
+}
+
+var randNum;
+// Returns a random integer between min (included) and max (excluded)
+// Using Math.round() will give you a non-uniform distribution!
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandomInt(min, max) {
+    if (randNum == null) {
+       return Math.floor(Math.random() * (max - min)) + min;
+    } else{
+        number = Math.floor(Math.random() * (max - min)) + min;
+        while(randNum === number) {
+            number = Math.floor(Math.random() * (max - min)) + min;
+        }
+
+        return number;
+    }
+
 }
 
 function getQuestionType() {
@@ -43,7 +59,7 @@ function numberListGenerator(numElements) {
 
 // The function creates a list of lists.
 function doubleListGenerator() {
-    var numOfElements = getRandomInt(1, 4);
+    var numOfElements = getRandomInt(2, 4);
     // each list is no longer that 3 elements
     var list1 = numberListGenerator(numOfElements);
     var list2 = numberListGenerator(numOfElements);
